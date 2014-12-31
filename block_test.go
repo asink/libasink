@@ -1,9 +1,9 @@
-// asink v0.1.1-dev
+// libasink v0.0.1
 //
 // (c) Ground Six
 //
-// @package asink
-// @version 0.1.1-dev
+// @package libasink
+// @version 0.0.1
 //
 // @author Harry Lawrence <http://github.com/hazbo>
 //
