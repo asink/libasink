@@ -53,7 +53,6 @@ func (c Command) Exec() bool {
 
     command := make(chan Command)
 
-    validateDirectoryName(&c)
     os.Chdir(getWorkingDirectory())
     os.Chdir(c.Dir)
 
