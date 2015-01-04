@@ -83,6 +83,7 @@ func (c Command) setenv() {
 // parts of the command object
 func (c *Command) getenv() {
     c.Name = os.ExpandEnv(c.Name)
+    c.Dir = os.ExpandEnv(c.Dir)
     for ai, a := range c.Args {
         c.Args[ai] = os.ExpandEnv(a)
     }
