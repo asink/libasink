@@ -6,6 +6,7 @@
 The package that provides a simple API to run commands concurrently.
 
 Docs are available [on GoDoc](https://godoc.org/github.com/asink/libasink).
+Additional information and examples can be found on [Asink's Wiki](https://github.com/GroundSix/asink/wiki/Public-Go-API).
 
 ### License
 
