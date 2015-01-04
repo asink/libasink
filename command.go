@@ -56,6 +56,7 @@ func (c Command) Exec() bool {
 
     command := make(chan Command)
 
+    c.getenv()
     c.setenv()
     c.chdir()
 
@@ -75,6 +76,18 @@ func (c Command) setenv() {
     for _, e := range c.Env {
         kv := strings.Split(e, "=")
         os.Setenv(kv[0], kv[1])
+    }
+}
+
+// Gets env vars from the Name, Args and Env
+// parts of the command object
+func (c *Command) getenv() {
+    c.Name = os.ExpandEnv(c.Name)
+    for ai, a := range c.Args {
+        c.Args[ai] = os.ExpandEnv(a)
+    }
+    for ei, e := range c.Env {
+        c.Env[ei] = os.ExpandEnv(e)
     }
 }
 
