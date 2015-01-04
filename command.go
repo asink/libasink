@@ -35,7 +35,7 @@ type Command struct {
     Dummy      bool
 }
 
-// Creates a new instance of Command with some
+// NewCommand creates a new instance of Command with some
 // default values. The command string is the
 // only initial value that is required.
 func NewCommand(name string) Command {
@@ -51,7 +51,7 @@ func NewCommand(name string) Command {
     }
 }
 
-// Implemented to satisfy the task's Execer
+// Exec implemented to satisfy the task's Execer
 // interface. Loops through the AsyncCount
 // to concurrently execute the command.
 func (c Command) Exec() bool {

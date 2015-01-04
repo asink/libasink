@@ -18,12 +18,14 @@ import (
     "sync"
 )
 
+// Execer represents the Exec method that needs to
+// be implemented.
 type Execer interface {
     Exec() bool
 }
 
 // TaskMap is a map of all created tasks
-var TasksMap map[string]Task = nil
+var TasksMap map[string]Task
 
 // Task holds the information required to run
 // a kind of task that implements the Execer.
