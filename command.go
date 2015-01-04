@@ -56,8 +56,8 @@ func (c Command) Exec() bool {
 
     command := make(chan Command)
 
-    c.getenv()
     c.setenv()
+    c.getenv()
     c.chdir()
 
     for i := 0; i != c.AsyncCount; i++ {
