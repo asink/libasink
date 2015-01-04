@@ -90,6 +90,7 @@ func (c *Command) getenv() {
     for ei, e := range c.Env {
         c.Env[ei] = os.ExpandEnv(e)
     }
+    c.setenv()
 }
 
 // Changes to a specified dir before executing
