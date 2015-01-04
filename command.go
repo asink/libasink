@@ -27,6 +27,7 @@ type Command struct {
     RelCount   int
     Dir        string
     Args       []string
+    Env        string
     Callback   func(command string)
     Dummy      bool
 }
@@ -36,13 +37,15 @@ type Command struct {
 // only initial value that is required
 func NewCommand(name string) Command {
     return Command{
-        name,                   // Root command (required)
-        1,                      // AsyncCount
-        1,                      // RelCount
-        getWorkingDirectory(),  // Directory
-        []string{},             // Command arguments
-        func(command string){}, // Callback func
-        false}                  // Dummy command or not?
+        Name: name,                  
+        AsyncCount: 1,                     
+        RelCount: 1,
+        Dir: getWorkingDirectory(), 
+        Args: []string{},            
+        Env: "",
+        Callback: func(command string){}, 
+        Dummy: false,
+    }
 }
 
 // Implemented to satisfy the task's Execer
