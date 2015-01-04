@@ -25,6 +25,7 @@ func TestNewCommand(t *testing.T) {
     c.AsyncCount = 1
     c.RelCount   = 1
     c.Dir        = "~"
+    c.Env        = []string{"NAME=Harry"}
 
     tp := reflect.TypeOf(c).String()
     if tp != "asink.Command" {
@@ -35,6 +36,10 @@ func TestNewCommand(t *testing.T) {
 func TestExecCommand(t *testing.T) {
     c := NewCommand("echo")
     c.Args = []string{"Hello, World!"}
+    c.AsyncCount = 1
+    c.RelCount   = 1
+    c.Dir        = "~"
+    c.Env        = []string{"NAME=Harry"}
     result := c.Exec()
     if result != true {
         t.Error("Expected true, got", result)

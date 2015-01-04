@@ -27,7 +27,7 @@ type Command struct {
     RelCount   int
     Dir        string
     Args       []string
-    Env        string
+    Env        []string
     Callback   func(command string)
     Dummy      bool
 }
@@ -42,7 +42,7 @@ func NewCommand(name string) Command {
         RelCount: 1,
         Dir: getWorkingDirectory(), 
         Args: []string{},            
-        Env: "",
+        Env:  []string{},
         Callback: func(command string){}, 
         Dummy: false,
     }
@@ -56,8 +56,8 @@ func (c Command) Exec() bool {
 
     command := make(chan Command)
 
-    os.Chdir(getWorkingDirectory())
-    os.Chdir(c.Dir)
+    c.setenv()
+    c.chdir()
 
     for i := 0; i != c.AsyncCount; i++ {
         wg.Add(1)
@@ -68,6 +68,21 @@ func (c Command) Exec() bool {
     close(command)
     wg.Wait()
     return true
+}
+
+// Sets env vars before executing a command
+func (c Command) setenv() {
+    for _, e := range c.Env {
+        kv := strings.Split(e, "=")
+        os.Setenv(kv[0], kv[1])
+    }
+}
+
+// Changes to a specified dir before executing
+// a command
+func (c Command) chdir() {
+    os.Chdir(getWorkingDirectory())
+    os.Chdir(c.Dir)
 }
 
 // Is called within Exec, the actual command
