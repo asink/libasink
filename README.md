@@ -4,7 +4,7 @@
 
 The package that provides a simple API to run commands concurrently.
 
-Docs to follow...
+Docs are available [on GoDoc](https://godoc.org/github.com/asink/libasink).
 
 ### License
 
