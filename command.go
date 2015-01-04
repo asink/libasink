@@ -21,6 +21,9 @@ import (
     "strings"
 )
 
+// Command represents the data needed to run a
+// command through Asink with its Args and
+// number of times for it to be executed.
 type Command struct {
     Name       string
     AsyncCount int
@@ -34,7 +37,7 @@ type Command struct {
 
 // Creates a new instance of Command with some
 // default values. The command string is the
-// only initial value that is required
+// only initial value that is required.
 func NewCommand(name string) Command {
     return Command{
         Name: name,                  
@@ -50,7 +53,7 @@ func NewCommand(name string) Command {
 
 // Implemented to satisfy the task's Execer
 // interface. Loops through the AsyncCount
-// to concurrently execute the command
+// to concurrently execute the command.
 func (c Command) Exec() bool {
     var wg sync.WaitGroup
 
@@ -71,7 +74,7 @@ func (c Command) Exec() bool {
     return true
 }
 
-// Sets env vars before executing a command
+// Sets env vars before executing a command.
 func (c Command) setenv() {
     for _, e := range c.Env {
         kv := strings.Split(e, "=")
@@ -80,7 +83,7 @@ func (c Command) setenv() {
 }
 
 // Gets env vars from the Name, Args and Env
-// parts of the command object
+// parts of the command object.
 func (c *Command) getenv() {
     c.Name = os.ExpandEnv(c.Name)
     c.Dir = os.ExpandEnv(c.Dir)
@@ -94,14 +97,14 @@ func (c *Command) getenv() {
 }
 
 // Changes to a specified dir before executing
-// a command
+// a command.
 func (c Command) chdir() {
     os.Chdir(getWorkingDirectory())
     os.Chdir(c.Dir)
 }
 
 // Is called within Exec, the actual command
-// execution happens in here
+// execution happens in here.
 func runCommand(command chan Command, wg *sync.WaitGroup) {
     defer wg.Done()
 

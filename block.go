@@ -18,22 +18,24 @@ import (
     "sync"
 )
 
+// Block holds the closure func and both counts
+// representing how many times the code will run.
 type Block struct {
     block      func()
     AsyncCount int
     RelCount   int
 }
 
-// Creates a new instance of Block with some
+// NewBlock creates a new instance of Block with some
 // default values. The block func is the
-// only initial value that is required
+// only initial value that is required.
 func NewBlock(block func()) Block {
     return Block{block, 1, 1}
 }
 
-// Implemented to satisfy the task's Execer
+// Exec implemented to satisfy the task's Execer
 // interface. Loops through the AsyncCount
-// to concurrently execute the block
+// to concurrently execute the block.
 func (b Block) Exec() bool {
     var wg sync.WaitGroup
 
@@ -51,7 +53,7 @@ func (b Block) Exec() bool {
 }
 
 // Is called within Exec, the actual block
-// execution happens in here
+// execution happens in here.
 func runBlock(block chan Block, wg *sync.WaitGroup) {
     defer wg.Done()
 

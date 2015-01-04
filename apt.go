@@ -18,6 +18,8 @@ import (
     "strings"
 )
 
+// Apt contains the information needed to run apt
+// get or install commands.
 type Apt struct {
     Action   string
     Packages []string
@@ -27,7 +29,7 @@ type Apt struct {
 
 // NewApt creates a new instance of Apt with some
 // default values. The action string is the
-// only initial value that is required
+// only initial value that is required.
 func NewApt(action string) Apt {
     a := Apt{}
     a.Action   = action
@@ -39,7 +41,7 @@ func NewApt(action string) Apt {
 
 // Exec generates the command string to be ran based
 // on apt-get. Currently supports 'update' or
-// 'install'
+// 'install'.
 func (a Apt) Exec() bool {
     c := NewCommand("apt-get")
     c.Args = append([]string{a.Action, "-y"}, a.Packages...)
@@ -50,12 +52,12 @@ func (a Apt) Exec() bool {
     return true
 }
 
-// AddPackage adds a package to install
+// AddPackage adds a package to install.
 func (a *Apt) AddPackage(p string) {
     a.Packages = append(a.Packages, p)
 }
 
-// AddPackages adds multiple packages to install
+// AddPackages adds multiple packages to install.
 func (a *Apt) AddPackages(p []string) {
     for _, pa := range p {
         a.Packages = append(a.Packages, pa)
