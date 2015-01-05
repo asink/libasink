@@ -31,6 +31,7 @@ type Command struct {
     Dir        string
     Args       []string
     Env        []string
+    Output     string
     Callback   func(command string)
     Dummy      bool
 }
@@ -40,13 +41,14 @@ type Command struct {
 // only initial value that is required.
 func NewCommand(name string) Command {
     return Command{
-        Name: name,                  
-        AsyncCount: 1,                     
+        Name: name,
+        AsyncCount: 1,
         RelCount: 1,
-        Dir: getWorkingDirectory(), 
-        Args: []string{},            
+        Dir: getWorkingDirectory(),
+        Args: []string{},
         Env:  []string{},
-        Callback: func(command string){}, 
+        Output: "",
+        Callback: func(command string){},
         Dummy: false,
     }
 }
@@ -116,7 +118,8 @@ func runCommand(command chan Command, wg *sync.WaitGroup) {
             cmd := exec.Command(c.Name, c.Args...)
             cmd.Stdout = os.Stdout
             cmd.Stderr = os.Stderr
-            cmd.Run()
+            r, _ := cmd.Output()
+            c.Output = string(r)
         }
     }
 }

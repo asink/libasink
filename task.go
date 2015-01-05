@@ -24,7 +24,7 @@ type Execer interface {
     Exec() bool
 }
 
-// TaskMap is a map of all created tasks
+// TaskMap is a map of all created tasks.
 var TasksMap map[string]Task
 
 // Task holds the information required to run
