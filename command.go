@@ -46,7 +46,6 @@ func NewCommand(name string) Command {
         Dir: getWorkingDirectory(),
         Args: []string{},
         Env:  []string{},
-        Output: "",
         Callback: func(command string){},
         Dummy: false,
     }
