@@ -31,7 +31,6 @@ type Command struct {
     Dir        string
     Args       []string
     Env        []string
-    Output     string
     Callback   func(command string)
     Dummy      bool
 }
@@ -118,8 +117,7 @@ func runCommand(command chan Command, wg *sync.WaitGroup) {
             cmd := exec.Command(c.Name, c.Args...)
             cmd.Stdout = os.Stdout
             cmd.Stderr = os.Stderr
-            r, _ := cmd.Output()
-            c.Output = string(r)
+            cmd.Run()
         }
     }
 }
